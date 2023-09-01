@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Dealing with country names</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Dealing with country names</h1>
+
+
+
+<div id="identifying-country-names" class="section level2">
+<h2>Identifying country names</h2>
+<p>The function <code>is_country()</code> allows to check whether a
+string is a country name. The argument <code>fuzzy_mmatch</code> can be
+used to increase tolerance and allow for small typos in the names.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_country</span>(<span class="fu">c</span>(<span class="st">&quot;United States&quot;</span>,<span class="st">&quot;Unated States&quot;</span>,<span class="st">&quot;dot&quot;</span>,<span class="st">&quot;DNK&quot;</span>,<span class="dv">123</span>), <span class="at">fuzzy_match =</span> <span class="cn">FALSE</span>) <span class="co"># FALSE is the default and will run faster</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE FALSE  TRUE FALSE</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">is_country</span>(<span class="fu">c</span>(<span class="st">&quot;United States&quot;</span>,<span class="st">&quot;Unated States&quot;</span>,<span class="st">&quot;dot&quot;</span>,<span class="st">&quot;DNK&quot;</span>,<span class="dv">123</span>), <span class="at">fuzzy_match =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE  TRUE FALSE</span></span></code></pre></div>
+<p>Furthermore, <code>is_country()</code> can also be used to check for
+a specific subset of countries. In the following example, the function
+is used to test whether the string relates to India or Sri Lanka, while
+allowing for different naming conventions and languages.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_country</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="st">&quot;Ceylon&quot;</span>,<span class="st">&quot;LKA&quot;</span>,<span class="st">&quot;Indonesia&quot;</span>,<span class="st">&quot;Inde&quot;</span>), <span class="at">check_for=</span><span class="fu">c</span>(<span class="st">&quot;India&quot;</span>,<span class="st">&quot;Sri Lanka&quot;</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE  TRUE</span></span></code></pre></div>
+<p>Finally, the package also provides the function
+<code>find_countrycol()</code>, which can be used to find which columns
+in a data frame contain country names.</p>
+</div>
+<div id="converting-and-translating-country-names" class="section level2">
+<h2>Converting and translating country names</h2>
+<p>The function <code>country_name()</code> can be used to convert
+country names to different naming conventions or to translate them to
+different languages.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;United States&quot;</span>,<span class="st">&quot;DR Congo&quot;</span>, <span class="st">&quot;Morocco&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting 3-letters ISO code</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="st">&quot;ISO3&quot;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;USA&quot; &quot;COD&quot; &quot;MAR&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Translating to Spanish</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="st">&quot;name_es&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Estados Unidos&quot;                  &quot;República Democrática del Congo&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Marruecos&quot;</span></span></code></pre></div>
+<p>If multiple arguments are passed to the argument <code>to</code>, the
+function will output a <code>data.frame</code> object, with one column
+corresponding to every naming convention.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Requesting 2-letter ISO codes and translation to Spanish and French</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;ISO2&quot;</span>,<span class="st">&quot;name_es&quot;</span>,<span class="st">&quot;name_fr&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ISO2                         name_es                          name_fr</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   US                  Estados Unidos                       États-Unis</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   CD República Democrática del Congo République démocratique du Congo</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   MA                       Marruecos                            Maroc</span></span></code></pre></div>
+<p>The <code>to</code> argument supports all the following naming
+conventions:</p>
+<table>
+<colgroup>
+<col width="1%" />
+<col width="98%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">CODE</th>
+<th align="left">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>simple</strong></td>
+<td align="left">This is a simple english version of the name containing
+only ASCII characters. This nomenclature is available for all
+countries.</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>ISO3</strong></td>
+<td align="left">3-letter country codes as defined in ISO standard
+<code>3166-1 alpha-3</code>. This nomenclature is available only for the
+territories in the standard (currently 249 territories).</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>ISO2</strong></td>
+<td align="left">2-letter country codes as defined in ISO standard
+<code>3166-1 alpha-2</code>. This nomenclature is available only for the
+territories in the standard (currently 249 territories).</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>ISO_code</strong></td>
+<td align="left">Numeric country codes as defined in ISO standard
+<code>3166-1 numeric</code>. This country code is the same as the UN’s
+country number (M49 standard). This nomenclature is available for the
+territories in the ISO standard (currently 249 countries).</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>UN_</strong>xx</td>
+<td align="left">Official UN name in 6 official UN languages. Arabic
+(<code>UN_ar</code>), Chinese (<code>UN_zh</code>), English
+(<code>UN_en</code>), French (<code>UN_fr</code>), Spanish
+(<code>UN_es</code>), Russian (<code>UN_ru</code>). This nomenclature is
+only available for countries in the M49 standard (currently 249
+territories).</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>WTO_</strong>xx</td>
+<td align="left">Official WTO name in 3 official WTO languages: English
+(<code>WTO_en</code>), French (<code>WTO_fr</code>), Spanish
+(<code>WTO_es</code>). This nomenclature is only available for WTO
+members and observers (currently 189 entities).</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>name_</strong>xx</td>
+<td align="left">Translation of ISO country names in 28 different
+languages: Arabic (<code>name_ar</code>), Bulgarian
+(<code>name_bg</code>), Czech (<code>name_cs</code>), Danish
+(<code>name_da</code>), German (<code>name_de</code>), Greek
+(<code>name_el</code>), English (<code>name_en</code>), Spanish
+(<code>name_es</code>), Estonian (<code>name_et</code>), Basque
+(<code>name_eu</code>), Finnish (<code>name_fi</code>), French
+(<code>name_fr</code>), Hungarian (<code>name_hu</code>), Italian
+(<code>name_it</code>), Japponease (<code>name_ja</code>), Korean
+(<code>name_ko</code>), Lithuanian (<code>name_lt</code>), Dutch
+(<code>name_nl</code>), Norwegian (<code>name_no</code>), Polish
+(<code>name_po</code>), Portuguese (<code>name_pt</code>), Romenian
+(<code>name_ro</code>), Russian (<code>name_ru</code>), Slovak
+(<code>name_sk</code>), Swedish (<code>name_sv</code>), Thai
+(<code>name_th</code>), Ukranian (<code>name_uk</code>), Chinese
+simplified (<code>name_zh</code>), Chinese traditional
+(<code>name_zh-tw</code>)</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>GTAP</strong></td>
+<td align="left">GTAP country and region codes.</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>all</strong></td>
+<td align="left">Converts to all the nomenclatures and languages in this
+table</td>
+</tr>
+</tbody>
+</table>
+<div id="further-options-and-warning-messages" class="section level3">
+<h3>Further options and warning messages</h3>
+<p><code>country_name()</code> can identify countries even when they are
+provided in mixed formats or in different languages. It is robust to
+small misspellings and recognises many alternative country names and old
+nomenclatures.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fuzzy_example <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;C@ète d^Ivoire&quot;</span>,<span class="st">&quot;Zaire&quot;</span>,<span class="st">&quot;FYROM&quot;</span>,<span class="st">&quot;Estados Unidos&quot;</span>,<span class="st">&quot;ITA&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> fuzzy_example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple country IDs have been matched to the same country name</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;United States of America&quot;         &quot;Côte d’Ivoire&quot;                   </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Democratic Republic of the Congo&quot; &quot;North Macedonia&quot;                 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;United States of America&quot;         &quot;Italy&quot;</span></span></code></pre></div>
+<p>More information on the country matching process can be obtained by
+setting <code>verbose=TRUE</code>. The function will print information
+on:</p>
+<ul>
+<li>The number of unique values provided by the user. In the example
+below 6 distinct strings have been provided.</li>
+<li>How many country names correspond exactly to the ones in the
+function’s reference list and how many have been recognised with fuzzy
+matching. In the example below, <code>&quot;C@ète d^Ivoire&quot;</code> is the
+only name recognised with fuzzy matching. The function’s reference table
+can be accessed with the command
+<code>data(country_reference_list)</code>.</li>
+<li>The function prints summary statistics on fuzzy matching. The
+DISTANCE metric is the <a href="https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">Jaro-Winkler</a>
+distance between the provided string (<code>&quot;C@ète d^Ivoire&quot;</code>) and
+the closest reference (<code>&quot;Côte d&#39;Ivoire&quot;</code>). Lower DISTANCE
+statistics indicate more reliable fuzzy matching.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> fuzzy_example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>), <span class="at">verbose=</span><span class="cn">TRUE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; In total 6 unique country names were provided</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5/6 have been matched with EXACT matching</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1/6 have been matched with FUZZY matching</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple arguments have been matched to the same country name:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - Estados Unidos : United States of America </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - US : United States of America</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;United States of America&quot;         &quot;Côte d’Ivoire&quot;                   </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Democratic Republic of the Congo&quot; &quot;North Macedonia&quot;                 </span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;United States of America&quot;         &quot;Italy&quot;</span></span></code></pre></div>
+<p>In addition, setting <code>verbose=TRUE</code> will also print
+additional informations relating to specific warnings that are normally
+given by the function:</p>
+<ul>
+<li><code>Multiple country IDs have been matched to the same country name</code>:
+This warning is issued if multiple strings have been matched to the same
+country. In verbose mode, the strings and corresponding countries will
+be listed. In the example above, both <code>&quot;US&quot;</code> and
+<code>&quot;Estados Unidos&quot;</code> are matched to the same country. If the
+vector of country names is a unique identifier, this could indicate that
+some country name was not recognised correctly. The user might consider
+using custom tables (refer to the next section).</li>
+<li><code>Some country IDs have no match in one or more country naming conventions</code>:
+indicates that it is impossible to find an exact match for one or more
+country names with <code>fuzzy_match=FALSE</code>. The user might
+consider using <code>fuzzy_match=TRUE</code> or custom tables (refer to
+the next section).</li>
+<li><code>There is low confidence on the matching of some country names</code>:
+This warning indicates that some strings have been matched poorly. Thus
+indicating that the country might have been misidentified. In verbose
+mode the function will provide a list of problematic strings (see the
+example below). If <code>poor_matches</code> is set to
+<code>FALSE</code> (the default), the function will return
+<code>NA</code> for these uncertain string. On the other hand, if
+<code>poor_matches=TRUE</code> the function will always return the
+closest match, even if poor. The user might consider using custom tables
+to solve issues with misidentification of country names (refer to the
+next section).</li>
+<li><code>Some country IDs have no match in one or more country naming conventions</code>:
+Conversion is requested to a nomenclature for which there is no
+information on the country. For instance, in the example below “Taiwan”
+has no correspondence in the <a href="https://unstats.un.org/unsd/methodology/m49/">UN M49 standard</a>.
+In verbose mode, the function will print all the country names affected
+by this problem. The user might consider using custom tables to solve
+this type of issues (refer to the next section).</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> <span class="fu">c</span>(<span class="st">&quot;Taiwan&quot;</span>,<span class="st">&quot;lsajdèd&quot;</span>), <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>), <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Some country IDs have no match in one or more country naming conventions</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA NA</span></span></code></pre></div>
+<p>All the information from verbose mode can be accessed by setting
+´simplify=FALSE´. This will return a list object containing:</p>
+<ul>
+<li><code>converted_data</code>: the normal output of the function</li>
+<li><code>match_table</code>: the conversion table with information on
+the closest match for each country name and distance metrics.</li>
+<li><code>summary</code>: summary values for the distance metrics</li>
+<li><code>warning</code>: logical value indicating whether a warning is
+issued by the function</li>
+<li><code>call</code>: the arguments passed by the user</li>
+</ul>
+</div>
+</div>
+<div id="using-custom-conversion-tables" class="section level2">
+<h2>Using custom conversion tables</h2>
+<p>In some cases, the user might be unhappy with the naming conversion
+or no valid conversion might exist for the provided territory. In these
+cases, it might be useful to tweak the conversion table. The package
+contains a utility function called <code>match_table()</code>, which can
+be used to generate conversion tables for small adjustments.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>example_custom <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Siam&quot;</span>,<span class="st">&quot;Burma&quot;</span>,<span class="st">&quot;H#@°)Koe2&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#suppose we are unhappy with how &quot;H#@°)Koe2&quot; is interpreted by the function</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot; &quot;Myanmar&quot;  NA</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#match_table can be used to generate a table for small adjustments</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">match_table</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>tab<span class="sc">$</span>name_en[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Hong Kong&quot;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#which can then be used for conversion</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>, <span class="at">custom_table =</span> tab)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot;  &quot;Myanmar&quot;   &quot;Hong Kong&quot;</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
