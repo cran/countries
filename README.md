@@ -13,7 +13,7 @@ data from different sources, and easily make world maps.
 
 ## Installing and loading the package
 
-The package can soon be installed from CRAN.
+The package can be installed from CRAN.
 
 ``` r
 # Install package from CRAN
@@ -168,14 +168,14 @@ auto_merge(tab1, tab2, tab3, tab4)
 #>    country world_cups HS_chapter volume time Table4_pivoted_values
 #> 1      ITA          4          9   1000   NA                    NA
 #> 2      ITA          4         85   2000   NA                    NA
-#> 3      PAK          0         NA     NA 2010             0.3456468
-#> 4      PAK          0         NA     NA 2011             0.4289851
-#> 5      BRA          5         NA     NA 2010             0.9541858
-#> 6      BRA          5         NA     NA 2011             0.7919756
-#> 7      DEU         NA          9    800 2010             0.7880156
-#> 8      DEU         NA          9    800 2011             0.0687606
-#> 9      DEU         NA         85   5000 2010             0.7880156
-#> 10     DEU         NA         85   5000 2011             0.0687606
+#> 3      PAK          0         NA     NA 2010          0.5190354490
+#> 4      PAK          0         NA     NA 2011          0.5737651435
+#> 5      BRA          5         NA     NA 2010          0.0003948507
+#> 6      BRA          5         NA     NA 2011          0.6425720844
+#> 7      DEU         NA          9    800 2010          0.2276211940
+#> 8      DEU         NA          9    800 2011          0.5273500693
+#> 9      DEU         NA         85   5000 2010          0.2276211940
+#> 10     DEU         NA         85   5000 2011          0.5273500693
 #>             Description
 #> 1  Coffee, tea and mate
 #> 2  Electrical machinery
