@@ -343,7 +343,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="identifying-country-names" class="section level2">
 <h2>Identifying country names</h2>
 <p>The function <code>is_country()</code> allows to check whether a
-string is a country name. The argument <code>fuzzy_mmatch</code> can be
+string is a country name. The argument <code>fuzzy_match</code> can be
 used to increase tolerance and allow for small typos in the names.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_country</span>(<span class="fu">c</span>(<span class="st">&quot;United States&quot;</span>,<span class="st">&quot;Unated States&quot;</span>,<span class="st">&quot;dot&quot;</span>,<span class="st">&quot;DNK&quot;</span>,<span class="dv">123</span>), <span class="at">fuzzy_match =</span> <span class="cn">FALSE</span>) <span class="co"># FALSE is the default and will run faster</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE FALSE  TRUE FALSE</span></span>
@@ -359,30 +359,298 @@ allowing for different naming conventions and languages.</p>
 <code>find_countrycol()</code>, which can be used to find which columns
 in a data frame contain country names.</p>
 </div>
+<div id="getting-a-list-of-country-names" class="section level2">
+<h2>Getting a list of country names</h2>
+<p>The functions <code>list_countries()</code> and
+<code>random_countries()</code> allow to get a list of country names.
+The former will return a list of ALL countries, while the second
+provides <code>n</code> randomly picked countries.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">random_countries</span>(<span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Senegal&quot;               &quot;Seychelles&quot;            &quot;Solomon Islands&quot;      </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;Rwanda&quot;                &quot;Sao Tome and Principe&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">list_countries</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] &quot;Afghanistan&quot;                                         </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [2] &quot;Åland Islands&quot;                                       </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3] &quot;Albania&quot;                                             </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [4] &quot;Algeria&quot;                                             </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [5] &quot;American Samoa&quot;                                      </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [6] &quot;Andorra&quot;                                             </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [7] &quot;Angola&quot;                                              </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [8] &quot;Anguilla&quot;                                            </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [9] &quot;Antarctica&quot;                                          </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [10] &quot;Antigua and Barbuda&quot;                                 </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11] &quot;Argentina&quot;                                           </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [12] &quot;Armenia&quot;                                             </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [13] &quot;Aruba&quot;                                               </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [14] &quot;Australia&quot;                                           </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [15] &quot;Austria&quot;                                             </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16] &quot;Azerbaijan&quot;                                          </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [17] &quot;Bahamas&quot;                                             </span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [18] &quot;Bahrain&quot;                                             </span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [19] &quot;Bangladesh&quot;                                          </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [20] &quot;Barbados&quot;                                            </span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21] &quot;Belarus&quot;                                             </span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [22] &quot;Belgium&quot;                                             </span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [23] &quot;Belize&quot;                                              </span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [24] &quot;Benin&quot;                                               </span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [25] &quot;Bermuda&quot;                                             </span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26] &quot;Bhutan&quot;                                              </span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [27] &quot;Bolivia (Plurinational State of)&quot;                    </span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [28] &quot;Bonaire, Sint Eustatius and Saba&quot;                    </span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [29] &quot;Bosnia and Herzegovina&quot;                              </span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [30] &quot;Botswana&quot;                                            </span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31] &quot;Bouvet Island&quot;                                       </span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [32] &quot;Brazil&quot;                                              </span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [33] &quot;British Indian Ocean Territory&quot;                      </span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [34] &quot;Virgin Islands (British)&quot;                            </span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [35] &quot;Brunei Darussalam&quot;                                   </span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [36] &quot;Bulgaria&quot;                                            </span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [37] &quot;Burkina Faso&quot;                                        </span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [38] &quot;Burundi&quot;                                             </span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [39] &quot;Cabo Verde&quot;                                          </span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [40] &quot;Cambodia&quot;                                            </span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41] &quot;Cameroon&quot;                                            </span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [42] &quot;Canada&quot;                                              </span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [43] &quot;Cayman Islands&quot;                                      </span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [44] &quot;Central African Republic&quot;                            </span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [45] &quot;Chad&quot;                                                </span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46] &quot;Chile&quot;                                               </span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [47] &quot;China&quot;                                               </span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [48] &quot;Hong Kong&quot;                                           </span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [49] &quot;Macao&quot;                                               </span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [50] &quot;Christmas Island&quot;                                    </span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51] &quot;Cocos (Keeling) Islands&quot;                             </span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [52] &quot;Colombia&quot;                                            </span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [53] &quot;Comoros&quot;                                             </span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [54] &quot;Congo&quot;                                               </span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [55] &quot;Cook Islands&quot;                                        </span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [56] &quot;Costa Rica&quot;                                          </span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [57] &quot;Côte d&#39;Ivoire&quot;                                       </span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [58] &quot;Croatia&quot;                                             </span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [59] &quot;Cuba&quot;                                                </span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [60] &quot;Curaçao&quot;                                             </span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61] &quot;Cyprus&quot;                                              </span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [62] &quot;Czechia&quot;                                             </span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [63] &quot;Korea (Democratic People&#39;s Republic of)&quot;             </span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [64] &quot;Congo, Democratic Republic of the&quot;                   </span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [65] &quot;Denmark&quot;                                             </span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [66] &quot;Djibouti&quot;                                            </span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [67] &quot;Dominica&quot;                                            </span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [68] &quot;Dominican Republic&quot;                                  </span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [69] &quot;Ecuador&quot;                                             </span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [70] &quot;Egypt&quot;                                               </span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71] &quot;El Salvador&quot;                                         </span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [72] &quot;Equatorial Guinea&quot;                                   </span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [73] &quot;Eritrea&quot;                                             </span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [74] &quot;Estonia&quot;                                             </span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [75] &quot;Eswatini&quot;                                            </span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76] &quot;Ethiopia&quot;                                            </span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [77] &quot;Falkland Islands (Malvinas)&quot;                         </span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [78] &quot;Faroe Islands&quot;                                       </span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [79] &quot;Fiji&quot;                                                </span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [80] &quot;Finland&quot;                                             </span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81] &quot;France&quot;                                              </span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [82] &quot;French Guiana&quot;                                       </span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [83] &quot;French Polynesia&quot;                                    </span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [84] &quot;French Southern Territories&quot;                         </span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [85] &quot;Gabon&quot;                                               </span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [86] &quot;Gambia&quot;                                              </span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [87] &quot;Georgia&quot;                                             </span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [88] &quot;Germany&quot;                                             </span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [89] &quot;Ghana&quot;                                               </span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [90] &quot;Gibraltar&quot;                                           </span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91] &quot;Greece&quot;                                              </span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [92] &quot;Greenland&quot;                                           </span></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [93] &quot;Grenada&quot;                                             </span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [94] &quot;Guadeloupe&quot;                                          </span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [95] &quot;Guam&quot;                                                </span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [96] &quot;Guatemala&quot;                                           </span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [97] &quot;Guernsey&quot;                                            </span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [98] &quot;Guinea&quot;                                              </span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [99] &quot;Guinea-Bissau&quot;                                       </span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [100] &quot;Guyana&quot;                                              </span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [101] &quot;Haiti&quot;                                               </span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [102] &quot;Heard Island and McDonald Islands&quot;                   </span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [103] &quot;Holy See&quot;                                            </span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [104] &quot;Honduras&quot;                                            </span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [105] &quot;Hungary&quot;                                             </span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [106] &quot;Iceland&quot;                                             </span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [107] &quot;India&quot;                                               </span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [108] &quot;Indonesia&quot;                                           </span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [109] &quot;Iran (Islamic Republic of)&quot;                          </span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [110] &quot;Iraq&quot;                                                </span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [111] &quot;Ireland&quot;                                             </span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [112] &quot;Isle of Man&quot;                                         </span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [113] &quot;Israel&quot;                                              </span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [114] &quot;Italy&quot;                                               </span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [115] &quot;Jamaica&quot;                                             </span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [116] &quot;Japan&quot;                                               </span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [117] &quot;Jersey&quot;                                              </span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [118] &quot;Jordan&quot;                                              </span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [119] &quot;Kazakhstan&quot;                                          </span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [120] &quot;Kenya&quot;                                               </span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [121] &quot;Kiribati&quot;                                            </span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [122] &quot;Kuwait&quot;                                              </span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [123] &quot;Kyrgyzstan&quot;                                          </span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [124] &quot;Lao People&#39;s Democratic Republic&quot;                    </span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [125] &quot;Latvia&quot;                                              </span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [126] &quot;Lebanon&quot;                                             </span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [127] &quot;Lesotho&quot;                                             </span></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [128] &quot;Liberia&quot;                                             </span></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [129] &quot;Libya&quot;                                               </span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [130] &quot;Liechtenstein&quot;                                       </span></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [131] &quot;Lithuania&quot;                                           </span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [132] &quot;Luxembourg&quot;                                          </span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [133] &quot;Madagascar&quot;                                          </span></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [134] &quot;Malawi&quot;                                              </span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [135] &quot;Malaysia&quot;                                            </span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [136] &quot;Maldives&quot;                                            </span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [137] &quot;Mali&quot;                                                </span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [138] &quot;Malta&quot;                                               </span></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [139] &quot;Marshall Islands&quot;                                    </span></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [140] &quot;Martinique&quot;                                          </span></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [141] &quot;Mauritania&quot;                                          </span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [142] &quot;Mauritius&quot;                                           </span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [143] &quot;Mayotte&quot;                                             </span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [144] &quot;Mexico&quot;                                              </span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [145] &quot;Micronesia (Federated States of)&quot;                    </span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [146] &quot;Monaco&quot;                                              </span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [147] &quot;Mongolia&quot;                                            </span></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [148] &quot;Montenegro&quot;                                          </span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [149] &quot;Montserrat&quot;                                          </span></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [150] &quot;Morocco&quot;                                             </span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [151] &quot;Mozambique&quot;                                          </span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [152] &quot;Myanmar&quot;                                             </span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [153] &quot;Namibia&quot;                                             </span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [154] &quot;Nauru&quot;                                               </span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [155] &quot;Nepal&quot;                                               </span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [156] &quot;Netherlands&quot;                                         </span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [157] &quot;New Caledonia&quot;                                       </span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [158] &quot;New Zealand&quot;                                         </span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [159] &quot;Nicaragua&quot;                                           </span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [160] &quot;Niger&quot;                                               </span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [161] &quot;Nigeria&quot;                                             </span></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [162] &quot;Niue&quot;                                                </span></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [163] &quot;Norfolk Island&quot;                                      </span></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [164] &quot;North Macedonia&quot;                                     </span></span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [165] &quot;Northern Mariana Islands&quot;                            </span></span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [166] &quot;Norway&quot;                                              </span></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [167] &quot;Oman&quot;                                                </span></span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [168] &quot;Pakistan&quot;                                            </span></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [169] &quot;Palau&quot;                                               </span></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [170] &quot;Panama&quot;                                              </span></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [171] &quot;Papua New Guinea&quot;                                    </span></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [172] &quot;Paraguay&quot;                                            </span></span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [173] &quot;Peru&quot;                                                </span></span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [174] &quot;Philippines&quot;                                         </span></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [175] &quot;Pitcairn&quot;                                            </span></span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [176] &quot;Poland&quot;                                              </span></span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [177] &quot;Portugal&quot;                                            </span></span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [178] &quot;Puerto Rico&quot;                                         </span></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [179] &quot;Qatar&quot;                                               </span></span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [180] &quot;Korea, Republic of&quot;                                  </span></span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [181] &quot;Moldova, Republic of&quot;                                </span></span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [182] &quot;Réunion&quot;                                             </span></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [183] &quot;Romania&quot;                                             </span></span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [184] &quot;Russian Federation&quot;                                  </span></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [185] &quot;Rwanda&quot;                                              </span></span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [186] &quot;Saint Barthélemy&quot;                                    </span></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [187] &quot;Saint Helena, Ascension and Tristan da Cunha&quot;        </span></span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [188] &quot;Saint Kitts and Nevis&quot;                               </span></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [189] &quot;Saint Lucia&quot;                                         </span></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [190] &quot;Saint Martin (French part)&quot;                          </span></span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [191] &quot;Saint Pierre and Miquelon&quot;                           </span></span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [192] &quot;Saint Vincent and the Grenadines&quot;                    </span></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [193] &quot;Samoa&quot;                                               </span></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [194] &quot;San Marino&quot;                                          </span></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [195] &quot;Sao Tome and Principe&quot;                               </span></span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [196] &quot;Saudi Arabia&quot;                                        </span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [197] &quot;Senegal&quot;                                             </span></span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [198] &quot;Serbia&quot;                                              </span></span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [199] &quot;Seychelles&quot;                                          </span></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [200] &quot;Sierra Leone&quot;                                        </span></span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [201] &quot;Singapore&quot;                                           </span></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [202] &quot;Sint Maarten (Dutch part)&quot;                           </span></span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [203] &quot;Slovakia&quot;                                            </span></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [204] &quot;Slovenia&quot;                                            </span></span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [205] &quot;Solomon Islands&quot;                                     </span></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [206] &quot;Somalia&quot;                                             </span></span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [207] &quot;South Africa&quot;                                        </span></span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [208] &quot;South Georgia and the South Sandwich Islands&quot;        </span></span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [209] &quot;South Sudan&quot;                                         </span></span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [210] &quot;Spain&quot;                                               </span></span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [211] &quot;Sri Lanka&quot;                                           </span></span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [212] &quot;Palestine, State of&quot;                                 </span></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [213] &quot;Sudan&quot;                                               </span></span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [214] &quot;Suriname&quot;                                            </span></span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [215] &quot;Svalbard and Jan Mayen&quot;                              </span></span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [216] &quot;Sweden&quot;                                              </span></span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [217] &quot;Switzerland&quot;                                         </span></span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [218] &quot;Syrian Arab Republic&quot;                                </span></span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [219] &quot;Tajikistan&quot;                                          </span></span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [220] &quot;Thailand&quot;                                            </span></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [221] &quot;Timor-Leste&quot;                                         </span></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [222] &quot;Togo&quot;                                                </span></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [223] &quot;Tokelau&quot;                                             </span></span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [224] &quot;Tonga&quot;                                               </span></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [225] &quot;Trinidad and Tobago&quot;                                 </span></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [226] &quot;Tunisia&quot;                                             </span></span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [227] &quot;Turkey&quot;                                              </span></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [228] &quot;Turkmenistan&quot;                                        </span></span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [229] &quot;Turks and Caicos Islands&quot;                            </span></span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [230] &quot;Tuvalu&quot;                                              </span></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [231] &quot;Uganda&quot;                                              </span></span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [232] &quot;Ukraine&quot;                                             </span></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [233] &quot;United Arab Emirates&quot;                                </span></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [234] &quot;United Kingdom of Great Britain and Northern Ireland&quot;</span></span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [235] &quot;Tanzania, United Republic of&quot;                        </span></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [236] &quot;United States Minor Outlying Islands&quot;                </span></span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [237] &quot;United States of America&quot;                            </span></span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [238] &quot;Virgin Islands (U.S.)&quot;                               </span></span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [239] &quot;Uruguay&quot;                                             </span></span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [240] &quot;Uzbekistan&quot;                                          </span></span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [241] &quot;Vanuatu&quot;                                             </span></span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [242] &quot;Venezuela (Bolivarian Republic of)&quot;                  </span></span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [243] &quot;Viet Nam&quot;                                            </span></span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [244] &quot;Wallis and Futuna&quot;                                   </span></span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [245] &quot;Western Sahara&quot;                                      </span></span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [246] &quot;Yemen&quot;                                               </span></span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [247] &quot;Zambia&quot;                                              </span></span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [248] &quot;Zimbabwe&quot;                                            </span></span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [249] &quot;Taiwan, Province of China&quot;</span></span></code></pre></div>
+<p>The function allows to request country names in different languages
+and nomenclatures. The list of all possible languages and nomenclatures
+is available in the next section.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">random_countries</span>(<span class="dv">5</span>, <span class="at">nomenclature =</span> <span class="st">&quot;ISO3&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;GBR&quot; &quot;GUF&quot; &quot;DOM&quot; &quot;SPM&quot; &quot;ESP&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">random_countries</span>(<span class="dv">5</span>, <span class="at">nomenclature =</span> <span class="st">&quot;name_ar&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;سان بيير وميكلون&quot; &quot;ساحل العاج&quot;       &quot;جزر أولاند&quot;       &quot;المغرب&quot;          </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;ألمانيا&quot;</span></span></code></pre></div>
+</div>
 <div id="converting-and-translating-country-names" class="section level2">
 <h2>Converting and translating country names</h2>
 <p>The function <code>country_name()</code> can be used to convert
 country names to different naming conventions or to translate them to
 different languages.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;United States&quot;</span>,<span class="st">&quot;DR Congo&quot;</span>, <span class="st">&quot;Morocco&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting 3-letters ISO code</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="st">&quot;ISO3&quot;</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;USA&quot; &quot;COD&quot; &quot;MAR&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Translating to Spanish</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="st">&quot;name_es&quot;</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Estados Unidos&quot;                  &quot;República Democrática del Congo&quot;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Marruecos&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;United States&quot;</span>,<span class="st">&quot;DR Congo&quot;</span>, <span class="st">&quot;Morocco&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting 3-letters ISO code</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="st">&quot;ISO3&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;USA&quot; &quot;COD&quot; &quot;MAR&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Translating to Spanish</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="st">&quot;name_es&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Estados Unidos&quot;                  &quot;República Democrática del Congo&quot;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Marruecos&quot;</span></span></code></pre></div>
 <p>If multiple arguments are passed to the argument <code>to</code>, the
 function will output a <code>data.frame</code> object, with one column
 corresponding to every naming convention.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Requesting 2-letter ISO codes and translation to Spanish and French</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;ISO2&quot;</span>,<span class="st">&quot;name_es&quot;</span>,<span class="st">&quot;name_fr&quot;</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ISO2                         name_es                          name_fr</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   US                  Estados Unidos                       États-Unis</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   CD República Democrática del Congo République démocratique du Congo</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   MA                       Marruecos                            Maroc</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Requesting 2-letter ISO codes and translation to Spanish and French</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;ISO2&quot;</span>,<span class="st">&quot;name_es&quot;</span>,<span class="st">&quot;name_fr&quot;</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ISO2                         name_es                          name_fr</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   US                  Estados Unidos                       États-Unis</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   CD República Democrática del Congo République démocratique du Congo</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   MA                       Marruecos                            Maroc</span></span></code></pre></div>
 <p>The <code>to</code> argument supports all the following naming
 conventions:</p>
 <table>
@@ -475,15 +743,15 @@ table</td>
 provided in mixed formats or in different languages. It is robust to
 small misspellings and recognises many alternative country names and old
 nomenclatures.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fuzzy_example <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;C@ète d^Ivoire&quot;</span>,<span class="st">&quot;Zaire&quot;</span>,<span class="st">&quot;FYROM&quot;</span>,<span class="st">&quot;Estados Unidos&quot;</span>,<span class="st">&quot;ITA&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> fuzzy_example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple country IDs have been matched to the same country name</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;United States of America&quot;         &quot;Côte d’Ivoire&quot;                   </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Democratic Republic of the Congo&quot; &quot;North Macedonia&quot;                 </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;United States of America&quot;         &quot;Italy&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fuzzy_example <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;C@ète d^Ivoire&quot;</span>,<span class="st">&quot;Zaire&quot;</span>,<span class="st">&quot;FYROM&quot;</span>,<span class="st">&quot;Estados Unidos&quot;</span>,<span class="st">&quot;ITA&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> fuzzy_example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple country IDs have been matched to the same country name</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;United States of America&quot;         &quot;Côte d’Ivoire&quot;                   </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Democratic Republic of the Congo&quot; &quot;North Macedonia&quot;                 </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;United States of America&quot;         &quot;Italy&quot;</span></span></code></pre></div>
 <p>More information on the country matching process can be obtained by
 setting <code>verbose=TRUE</code>. The function will print information
 on:</p>
@@ -502,19 +770,19 @@ distance between the provided string (<code>&quot;C@ète d^Ivoire&quot;</code>) 
 the closest reference (<code>&quot;Côte d&#39;Ivoire&quot;</code>). Lower DISTANCE
 statistics indicate more reliable fuzzy matching.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> fuzzy_example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>), <span class="at">verbose=</span><span class="cn">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; In total 6 unique country names were provided</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5/6 have been matched with EXACT matching</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1/6 have been matched with FUZZY matching</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple arguments have been matched to the same country name:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - Estados Unidos : United States of America </span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - US : United States of America</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;United States of America&quot;         &quot;Côte d’Ivoire&quot;                   </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Democratic Republic of the Congo&quot; &quot;North Macedonia&quot;                 </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;United States of America&quot;         &quot;Italy&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> fuzzy_example, <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>), <span class="at">verbose=</span><span class="cn">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; In total 6 unique country names were provided</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5/6 have been matched with EXACT matching</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1/6 have been matched with FUZZY matching</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple arguments have been matched to the same country name:</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - Estados Unidos : United States of America </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - US : United States of America</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;United States of America&quot;         &quot;Côte d’Ivoire&quot;                   </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;Democratic Republic of the Congo&quot; &quot;North Macedonia&quot;                 </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;United States of America&quot;         &quot;Italy&quot;</span></span></code></pre></div>
 <p>In addition, setting <code>verbose=TRUE</code> will also print
 additional informations relating to specific warnings that are normally
 given by the function:</p>
@@ -551,12 +819,12 @@ In verbose mode, the function will print all the country names affected
 by this problem. The user might consider using custom tables to solve
 this type of issues (refer to the next section).</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> <span class="fu">c</span>(<span class="st">&quot;Taiwan&quot;</span>,<span class="st">&quot;lsajdèd&quot;</span>), <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>), <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Some country IDs have no match in one or more country naming conventions</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x=</span> <span class="fu">c</span>(<span class="st">&quot;Taiwan&quot;</span>,<span class="st">&quot;lsajdèd&quot;</span>), <span class="at">to=</span><span class="fu">c</span>(<span class="st">&quot;UN_en&quot;</span>), <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Some country IDs have no match in one or more country naming conventions</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA NA</span></span></code></pre></div>
 <p>All the information from verbose mode can be accessed by setting
 ´simplify=FALSE´. This will return a list object containing:</p>
 <ul>
@@ -577,23 +845,23 @@ or no valid conversion might exist for the provided territory. In these
 cases, it might be useful to tweak the conversion table. The package
 contains a utility function called <code>match_table()</code>, which can
 be used to generate conversion tables for small adjustments.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>example_custom <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Siam&quot;</span>,<span class="st">&quot;Burma&quot;</span>,<span class="st">&quot;H#@°)Koe2&quot;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#suppose we are unhappy with how &quot;H#@°)Koe2&quot; is interpreted by the function</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot; &quot;Myanmar&quot;  NA</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#match_table can be used to generate a table for small adjustments</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">match_table</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>tab<span class="sc">$</span>name_en[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Hong Kong&quot;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#which can then be used for conversion</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>, <span class="at">custom_table =</span> tab)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot;  &quot;Myanmar&quot;   &quot;Hong Kong&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>example_custom <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Siam&quot;</span>,<span class="st">&quot;Burma&quot;</span>,<span class="st">&quot;H#@°)Koe2&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#suppose we are unhappy with how &quot;H#@°)Koe2&quot; is interpreted by the function</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Set - verbose - to TRUE for more details</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot; &quot;Myanmar&quot;  NA</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#match_table can be used to generate a table for small adjustments</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">match_table</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There is low confidence on the matching of some country names</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>tab<span class="sc">$</span>name_en[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Hong Kong&quot;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#which can then be used for conversion</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="fu">country_name</span>(<span class="at">x =</span> example_custom, <span class="at">to =</span> <span class="st">&quot;name_en&quot;</span>, <span class="at">custom_table =</span> tab)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot;  &quot;Myanmar&quot;   &quot;Hong Kong&quot;</span></span></code></pre></div>
 </div>
 
 

@@ -32,6 +32,7 @@ quick_map(data, plot_col = "population", verbose = FALSE,
 quick_map(data[1:150,], plot_col = "population", verbose = FALSE,
           theme = "Greyscale",
           reverse_palette = TRUE,
+          name_legend = "Countries' populations\nas of 2022", 
           col_na = "darkred",
           col_border = "NA") # here we are removing the border lines
 

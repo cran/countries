@@ -14,6 +14,14 @@ is_country(c("United States","Unated States","dot","DNK",123), fuzzy_match = TRU
 is_country(x=c("Ceylon","LKA","Indonesia","Inde"), check_for=c("India","Sri Lanka"))
 
 ## -----------------------------------------------------------------------------
+random_countries(5)
+list_countries()
+
+## -----------------------------------------------------------------------------
+random_countries(5, nomenclature = "ISO3")
+random_countries(5, nomenclature = "name_ar")
+
+## -----------------------------------------------------------------------------
 example <- c("United States","DR Congo", "Morocco")
 
 # Getting 3-letters ISO code
