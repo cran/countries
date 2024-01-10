@@ -1,3 +1,7 @@
+# countries 1.1.2
+* Improving handling of API connection errors in function *country_info* and *list_fields*  
+* Fixing bug in *quick_map* occurring when *plot_col* is identical to one of the columns in the table *countries::world*
+
 # countries 1.1.1
 * Added function *list_countries* to obtain a list of countries
 * Added function *random_countries* to obtain random country names

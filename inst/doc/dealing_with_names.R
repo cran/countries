@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -15,7 +15,7 @@ is_country(x=c("Ceylon","LKA","Indonesia","Inde"), check_for=c("India","Sri Lank
 
 ## -----------------------------------------------------------------------------
 random_countries(5)
-list_countries()
+list_countries()[1:5]
 
 ## -----------------------------------------------------------------------------
 random_countries(5, nomenclature = "ISO3")

@@ -41,39 +41,8 @@ library(countries)
 ## Dealing with country names
 
 The package contains several functions to work with country names. For
-instance, the function `is_country()` can be used to test for country
-names or subsets of countries:
-
-``` r
-#Detect strings that are country names
-is_country(x = c("ITA","Estados Unidos","bungalow","dog",542))
-#> [1]  TRUE  TRUE FALSE FALSE FALSE
-
-#Checking for a specific subset of countries
-is_country(x = c("Ceylon","LKA","Indonesia","Inde"), check_for = c("India","Sri Lanka"))
-#> [1]  TRUE  TRUE FALSE  TRUE
-```
-
-The functions `list_countries()` and `random_countries()` allow to get a
-list of country names. The former will return a list of ALL countries,
-while the second provides `n` randomly picked countries.
-
-``` r
-# Get 5 random country names in different languages/nomenclatures
-random_countries(5)
-#> [1] "Poland"                         "Saint Martin (French part)"    
-#> [3] "British Indian Ocean Territory" "Malaysia"                      
-#> [5] "Croatia"
-random_countries(5, nomenclature = "ISO3")
-#> [1] "BEN" "LCA" "PHL" "SEN" "IND"
-random_countries(5, nomenclature = "name_ar")
-#> [1] "بنغلاديش"                "الصين"                  
-#> [3] "تشيلي"                   "القارة القطبية الجنوبية"
-#> [5] "فانواتو"
-```
-
-The function `country_name()` can be used to convert country names to
-different naming conventions or to translate them to different
+instance, the function `country_name()` can be used to convert country
+names to different naming conventions or to translate them to different
 languages. `country_name()` can identify countries even when they are
 provided in mixed formats or in different languages. It is robust to
 small misspellings and recognises many alternative country names and old
@@ -100,6 +69,37 @@ country_name(x= example, to=c("ISO3","ISO2","UN_en"))
 #> 3  MAR   MA                  Morocco
 #> 4  MKD   MK          North Macedonia
 #> 5  SAU   SA             Saudi Arabia
+```
+
+The function `is_country()` can be used to test for country names or
+subsets of countries:
+
+``` r
+#Detect strings that are country names
+is_country(x = c("ITA","Estados Unidos","bungalow","dog",542))
+#> [1]  TRUE  TRUE FALSE FALSE FALSE
+
+#Checking for a specific subset of countries
+is_country(x = c("Ceylon","LKA","Indonesia","Inde"), check_for = c("India","Sri Lanka"))
+#> [1]  TRUE  TRUE FALSE  TRUE
+```
+
+The functions `list_countries()` and `random_countries()` allow to get a
+list of country names. The former will return a list of ALL countries,
+while the second provides `n` randomly picked countries.
+
+``` r
+# Get 5 random country names in different languages/nomenclatures
+random_countries(5)
+#> [1] "Burkina Faso" "Andorra"      "Martinique"   "Italy"        "Armenia"
+random_countries(5, nomenclature = "ISO3")
+#> [1] "DNK" "RWA" "LCA" "HTI" "COG"
+random_countries(5, nomenclature = "name_ar")
+#> [1] "تشيلي"                                
+#> [2] "إستونيا"                              
+#> [3] "سانت هيلانة وأسينشين وتريستان دا كونا"
+#> [4] "الجبل الأسود"                         
+#> [5] "إثيوبيا"
 ```
 
 ## Getting information about countries
@@ -183,14 +183,14 @@ auto_merge(tab1, tab2, tab3, tab4)
 #>    country world_cups HS_chapter volume time Table4_pivoted_values
 #> 1      ITA          4          9   1000   NA                    NA
 #> 2      ITA          4         85   2000   NA                    NA
-#> 3      PAK          0         NA     NA 2010             0.7762814
-#> 4      PAK          0         NA     NA 2011             0.2701757
-#> 5      BRA          5         NA     NA 2010             0.4908933
-#> 6      BRA          5         NA     NA 2011             0.7437787
-#> 7      DEU         NA          9    800 2010             0.3068419
-#> 8      DEU         NA          9    800 2011             0.2100806
-#> 9      DEU         NA         85   5000 2010             0.3068419
-#> 10     DEU         NA         85   5000 2011             0.2100806
+#> 3      PAK          0         NA     NA 2010            0.63487402
+#> 4      PAK          0         NA     NA 2011            0.61413072
+#> 5      BRA          5         NA     NA 2010            0.40908297
+#> 6      BRA          5         NA     NA 2011            0.70334019
+#> 7      DEU         NA          9    800 2010            0.07250716
+#> 8      DEU         NA          9    800 2011            0.24580297
+#> 9      DEU         NA         85   5000 2010            0.07250716
+#> 10     DEU         NA         85   5000 2011            0.24580297
 #>             Description
 #> 1  Coffee, tea and mate
 #> 2  Electrical machinery
