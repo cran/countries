@@ -48,7 +48,7 @@ tab <- data.frame(CODE=c("**simple**","**ISO3**","**ISO2**","**ISO_code**","**UN
 knitr::kable(tab)
 
 ## -----------------------------------------------------------------------------
-fuzzy_example <- c("US","C@ète d^Ivoire","Zaire","FYROM","Estados Unidos","ITA")
+fuzzy_example <- c("US","C@ète d^Ivoire","Zaire","FYROM","Estados Unidos","ITA","blablabla")
 
 country_name(x= fuzzy_example, to=c("UN_en"))
 
@@ -57,6 +57,8 @@ country_name(x= fuzzy_example, to=c("UN_en"), verbose=TRUE)
 
 ## -----------------------------------------------------------------------------
 country_name(x= c("Taiwan","lsajdèd"), to=c("UN_en"), verbose=FALSE)
+
+country_name(x= c("Taiwan","lsajdèd"), to=c("UN_en"), verbose=FALSE, na_fill = TRUE)
 
 ## -----------------------------------------------------------------------------
 example_custom <- c("Siam","Burma","H#@°)Koe2")

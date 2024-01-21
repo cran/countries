@@ -3,11 +3,12 @@
 #' This function recognises and converts country names to different nomenclatures and languages using a fuzzy matching algorithm.
 #' \code{country_name()} can identify countries even when they are provided in mixed formats or in different languages. It is robust to small misspellings and recognises many alternative country names and old nomenclatures.
 #' @param x A vector of country names
-#' @param to A string containing the desired naming conventions to which \code{x} should be converted to (e.g. \code{"ISO3"}, \code{"name_en"}, \code{"UN_fr"}, ...). For a list of all possible values \href{https://fbellelli.github.io/countries/articles/dealing_with_names.html}{click here} or refer to the vignette on country names \code{vignette("dealing_with_names")}. Default is \code{"ISO3"}.
+#' @param to A string containing the desired naming conventions to which \code{x} should be converted to (e.g. \code{"ISO3"}, \code{"name_en"}, \code{"UN_fr"}, ...). For a list of all possible values \href{https://fbellelli.github.io/countries/articles/dealing_with_names.html}{click here} or refer to the vignette on country names \code{vignette("dealing_with_names")}. Default is \code{"ISO3"}, which converts to the 249 3-letter country codes currently in ISO standard 3166.
 #' @param fuzzy_match Logical value indicating whether fuzzy matching of country names should be allowed (\code{TRUE}), or only exact matches are allowed (\code{FALSE}). Default is \code{TRUE}.
 #' @param verbose Logical value indicating whether the function should print to the console a full report. Default is \code{FALSE}.
 #' @param simplify Logical value. If set to \code{TRUE} the function will return a vector of converted names. If set to \code{FALSE}, the function will return a list object containing the converted vector and additional details on the country matching process. Default is \code{TRUE}.
 #' @param poor_matches Logical value. If set to \code{FALSE} (the default), the function will return \code{NA} in case of poor matching. If set to \code{TRUE}, the function will always return the closest matching country name, even if the match is poor.
+#' @param na_fill Logical value. If set to \code{TRUE}, any \code{NA} in the output names will be filled with the original country name supplied in \code{x}. The default is \code{FALSE} (no filling). In general, \code{NA}s are produced if: 1) the country is not present in the nomenclature requested in \code{to} (e.g. \code{country_name("Abkhazia", to = "ISO3")}), 2) the input country name is \code{NA}, 3) No exact match is found and the user sets the option \code{fuzzy_match = FALSE}, 4) When the fuzzy match algorithm does not find a good match and the user sets the option \code{poor_match = FALSE}. The \code{na_fill} argument gives the option to replace the resulting NA with the original value in \code{x}.
 #' @param custom_table Custom conversion table to be used. This needs to be a \code{data.frame} object. Default is \code{NULL}.
 #' @returns Returns a vector of converted country names. If multiple nomenclatures are passed to the argument \code{to}, the vectors are arranged in a data frame. If \code{simplify=FALSE}, the function will return a list object.
 #' @seealso \link[countries]{is_country}, \link[countries]{match_table}, \link[countries]{find_countrycol}
@@ -28,6 +29,7 @@ country_name <- function(x,
                          verbose = FALSE,
                          simplify = TRUE,
                          poor_matches = FALSE,
+                         na_fill = FALSE,
                          custom_table = NULL){
 
   #CHECK INPUTS (the rest is checked by match_table)
@@ -41,7 +43,7 @@ country_name <- function(x,
   } else{
 
     # BUILD CONVERSION TABLE
-    matches <- match_table(x, to = to, fuzzy_match = fuzzy_match, verbose = verbose, matching_info= TRUE, simplify = FALSE, poor_matches = poor_matches, custom_table = custom_table)
+    matches <- match_table(x, to = to, fuzzy_match = fuzzy_match, verbose = verbose, matching_info= TRUE, simplify = FALSE, poor_matches = poor_matches, na_fill = na_fill, custom_table = custom_table)
     to <- matches$call$to
 
     # CONVERT DATA
