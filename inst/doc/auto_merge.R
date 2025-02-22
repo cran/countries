@@ -45,11 +45,11 @@ dt <- auto_merge(tab1, tab2, tab3, tab4, tab5, verbose = F, merging_info = T)
 knitr::kable(dt$info_merged_columns)
 
 ## ----eval = F-----------------------------------------------------------------
-#  data <- list(tab1, tab2, tab3, tab4, tab5)
-#  
-#  # the following two commands are equivalent
-#  auto_merge(tab1, tab2, tab3, tab4, tab5)
-#  auto_merge(data)
+# data <- list(tab1, tab2, tab3, tab4, tab5)
+# 
+# # the following two commands are equivalent
+# auto_merge(tab1, tab2, tab3, tab4, tab5)
+# auto_merge(data)
 
 ## -----------------------------------------------------------------------------
 # changing the country names to UN spanish official name
@@ -66,7 +66,7 @@ auto_merge(tab1, tab3, auto_melt = FALSE)
 auto_merge(tab1, tab2, tab3, tab4, tab5, inner_join = TRUE)
 
 ## ----eval = F-----------------------------------------------------------------
-#  auto_merge(tab1, tab2, tab3, tab4, tab5, verbose = F)
+# auto_merge(tab1, tab2, tab3, tab4, tab5, verbose = F)
 
 ## -----------------------------------------------------------------------------
 # asking to merge country and year columns manually with a list of column names
